@@ -19,5 +19,5 @@ jobs:
           pip install --pre azure-containerregistry
           pip install --pre azure-identity
           pwd
-          ls **/**
+          ls -lht
           python .github/del_old_containers.py
