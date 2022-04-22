@@ -15,4 +15,6 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - uses: actions/setup-python@v3
-      - run: pip install pandas
+      - inlineScript: |
+          az account show
+          az storage -h
