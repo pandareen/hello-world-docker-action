@@ -18,6 +18,6 @@ jobs:
       - run: |
           pip install --pre azure-containerregistry
           pip install --pre azure-identity
-          pwd
-          ls -lht
-          python .github/del_old_containers.py
+
+      - name: Execute Python script # Run the run.py to get the latest data
+        run: python del_old_containers.py
