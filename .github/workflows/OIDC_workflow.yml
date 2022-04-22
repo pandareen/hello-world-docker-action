@@ -15,4 +15,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - uses: actions/setup-python@v3
-      - run: az account show
+      - run: |
+          pip install --pre azure-containerregistry
+          pip install --pre azure-identity
+          python ${GITHUB_WORKSPACE}/.github/del_old_containers.py
