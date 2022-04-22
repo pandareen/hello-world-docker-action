@@ -15,4 +15,4 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - run: |
-          az webapp list --query "[?state=='Running']"
+          az acr repository show-tags --name sandeshyapuramcr --repository hello --orderby time_desc
