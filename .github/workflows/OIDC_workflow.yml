@@ -14,5 +14,5 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - run: |
-          az acr repository show-tags --name sandeshyapuramcr --repository hello --orderby time_desc
+      - uses: actions/setup-python@v3
+      - run: pip install pandas
