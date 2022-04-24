@@ -1,4 +1,5 @@
 # This is to retrieve/backup all the Conditional Access Policies
+Set-ExecutionPolicy RemoteSigned
 Install-Module Microsoft.Graph.Identity.SignIns -Scope CurrentUser -Force
 Import-Module Microsoft.Graph.Identity.SignIns -Force
 Connect-MgGraph
