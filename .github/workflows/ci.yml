@@ -12,7 +12,4 @@ jobs:
     - name: Run a one-line script
       run: echo Hello, world!
     - name: Run a multi-line script
-      run: |
-        @echo off & setlocal
-        set batchPath=%~dp0
-        powershell.exe -noexit -file "Backup-Policies.ps1" "MY-PC"
+      run: powershell.exe -noexit -file "Backup-Policies.ps1" "MY-PC"
