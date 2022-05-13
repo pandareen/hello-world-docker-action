@@ -1,0 +1,36 @@
+# Repo: MySpace/TemplateRepo
+# File: delete_o365_contacts.yml
+
+name: delete_o365_contacts
+
+trigger:
+  branches:
+    include:
+      - main
+
+stages:
+- stage: "delete_o365_contacts"
+  jobs: 
+  - job: delete_o365_contacts
+    pool:
+      vmImage: 'windows-latest'
+    displayName: "delete_o365_contacts"
+    steps:
+      - checkout: self
+        persistCredentials: true
+      - task: AzureKeyVault@2
+        inputs:
+          azureSubscription: 'sandesh-azure-serviceconnection'
+          KeyVaultName: 'sandeshkeyvault'
+          SecretsFilter: 'AppId,ClientSecret,TenantId'
+          RunAsPreJob: true
+      - task: AzurePowerShell@5
+        inputs:
+          azureSubscription: 'sandesh-azure-serviceconnection'
+          ScriptType: FilePath
+          ScriptPath: 'delete_contacts.ps1'
+          ScriptArguments: > # Use this to avoid newline characters in multiline string
+            -AppId $(AppId)
+            -TenantId $(TenantId)
+            -ClientSecret $(ClientSecret)
+          azurePowerShellVersion: LatestVersion
