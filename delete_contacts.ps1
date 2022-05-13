@@ -18,13 +18,8 @@ $ConnectGraph = Invoke-RestMethod -Uri https://login.microsoftonline.com/$Tenant
 $token = $ConnectGraph.access_token
 Write-Output "The token $token has been processed."
 
-$BackupJsons = Get-Item -Recurse -Include *.json
-foreach ($Json in $BackupJsons) {
-    
-    $json = Get-Content $Json.FullName | Out-String | ConvertFrom-Json
-    $json.PSObject.Properties.Remove('createdDateTime')
-    $json.PSObject.Properties.Remove('modifiedDateTime')
-    Write-Output "The json is $($json|ConvertTo-Json) ."
-    Invoke-WebRequest -Verbose -UseBasicParsing https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies/$($json.id) -Headers @{Authorization = "Bearer $($token)"} -ContentType "application/json" -Method PATCH -Body $($json | ConvertTo-Json -Depth 10)
-}
+
+#Invoke-WebRequest -Verbose -UseBasicParsing https://graph.microsoft.com/v1.0/me -Headers @{Authorization = "Bearer $($token)"} -ContentType "application/json" -Method PATCH -Body $($json | ConvertTo-Json -Depth 10)
+
+Invoke-WebRequest -Verbose -UseBasicParsing https://graph.microsoft.com/v1.0/me -Headers @{Authorization = "Bearer $($token)"} -Method GET
 
